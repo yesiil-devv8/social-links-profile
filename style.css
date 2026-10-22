@@ -4,37 +4,47 @@
     box-sizing: border-box; /* Padding ve border, belirlenen genişliğin içine dahil edilir */
 }
 
-/* Bilgisayarımızdaki Inter yazı tipini CSS'e tanıtır */
+/* Renkleri tek bir yerden yönetmek için CSS değişkenleri tanımlar */
+:root {
+    --color-background: hsl(0, 0%, 8%); /* Sayfanın koyu arka plan rengi */
+    --color-card: hsl(0, 0%, 12%); /* Profil kartının arka plan rengi */
+    --color-link: hsl(0, 0%, 20%); /* Sosyal bağlantıların normal arka plan rengi */
+    --color-accent: hsl(75, 94%, 57%); /* Vurgulama için kullanılan yeşil renk */
+    --color-text: hsl(0, 0%, 100%); /* Ana metinlerin beyaz rengi */
+    --color-description: hsl(0, 0%, 88%); /* Açıklama metninin açık gri rengi */
+}
+
+/* Bilgisayarımızdaki Inter yazı tipinin normal sürümünü CSS'e tanıtır */
 @font-face {
     font-family: "Inter"; /* Fonta CSS içinde kullanacağımız ismi verir */
     src: url("assets/fonts/static/Inter-Regular.ttf") format("truetype"); /* Normal font dosyasının yolunu belirtir */
-    font-weight: 400; /* Normal yazı kalınlığı */
-    font-style: normal; /* Eğik olmayan yazı biçimi */
+    font-weight: 400; /* Normal yazı kalınlığını belirtir */
+    font-style: normal; /* Eğik olmayan yazı biçimini belirtir */
 }
 
 /* Inter yazı tipinin yarı kalın sürümünü CSS'e tanıtır */
 @font-face {
     font-family: "Inter"; /* Font ailesinin adını diğer sürümlerle aynı tutar */
     src: url("assets/fonts/static/Inter-SemiBold.ttf") format("truetype"); /* Yarı kalın font dosyasının yolunu belirtir */
-    font-weight: 600; /* Yarı kalın yazı */
-    font-style: normal; /* Eğik olmayan yazı biçimi */
+    font-weight: 600; /* Yarı kalın yazı kalınlığını belirtir */
+    font-style: normal; /* Eğik olmayan yazı biçimini belirtir */
 }
 
 /* Inter yazı tipinin kalın sürümünü CSS'e tanıtır */
 @font-face {
     font-family: "Inter"; /* Font ailesinin adını yine Inter olarak belirler */
     src: url("assets/fonts/static/Inter-Bold.ttf") format("truetype"); /* Kalın font dosyasının yolunu belirtir */
-    font-weight: 700; /* Kalın yazı */
-    font-style: normal; /* Eğik olmayan yazı biçimi */
+    font-weight: 700; /* Kalın yazı kalınlığını belirtir */
+    font-style: normal; /* Eğik olmayan yazı biçimini belirtir */
 }
 
 /* Sayfanın genel görünümünü düzenler */
 body {
     margin: 0; /* Tarayıcının varsayılan dış boşluğunu kaldırır */
     min-height: 100vh; /* Sayfanın en az ekran yüksekliği kadar olmasını sağlar */
-    background-color: hsl(0, 0%, 8%); /* Sayfa arka planını rehberdeki Grey 900 rengine ayarlar */
-    color: white; /* Varsayılan yazı rengini beyaz yapar */
-    font-family: "Inter", sans-serif; /* Sayfada Inter yazı tipini kullanır */
+    background-color: var(--color-background); /* Arka plan rengini tanımladığımız değişkenden alır */
+    color: var(--color-text); /* Varsayılan yazı rengini beyaz yapar */
+    font-family: "Inter", sans-serif; /* Sayfada Inter fontunu, yoksa sans-serif fontunu kullanır */
 }
 
 /* Ana alanı ekranın ortasına yerleştirir */
@@ -43,71 +53,78 @@ main {
     display: flex; /* Flexbox düzenini etkinleştirir */
     justify-content: center; /* İçeriği yatay eksende ortalar */
     align-items: center; /* İçeriği dikey eksende ortalar */
-    padding: 24px; /* Ana alanın kenarlarına iç boşluk verir */
+    padding: 1.5rem; /* Ana alanın kenarlarına 24px iç boşluk verir (varsayılan 16px kök boyutunda) */
 }
 
 /* Profil kartının görünümünü düzenler */
 .card {
     width: 100%; /* Kartın kullanılabilir genişliği doldurmasına izin verir */
-    max-width: 384px; /* Kartın 384px'den daha geniş olmasını engeller */
-    padding: 40px; /* Kartın içeriği ile kenarları arasında boşluk bırakır */
-    background-color: hsl(0, 0%, 12%); /* Kart arka planını rehberdeki Grey 800 rengine ayarlar */
-    border-radius: 12px; /* Kartın köşelerini yuvarlatır */
+    max-width: 24rem; /* Kartı en fazla 384px genişliğinde tutar (varsayılan 16px kök boyutunda) */
+    padding: 2.5rem; /* Kartın içeriği ile kenarları arasında 40px boşluk bırakır */
+    background-color: var(--color-card); /* Kart arka plan rengini değişkenden alır */
+    border-radius: 0.75rem; /* Kart köşelerini 12px yuvarlatır */
     text-align: center; /* Kart içindeki yazıları ortalar */
 }
 
-/* Profil fotoğrafını düzenler */
-img {
-    width: 88px; /* Fotoğrafın genişliğini belirler */
-    height: 88px; /* Fotoğrafın yüksekliğini belirler */
+/* Yalnızca profil kartının içindeki fotoğrafı düzenler */
+.card img {
+    width: 5.5rem; /* Fotoğrafın genişliğini 88px yapar */
+    height: 5.5rem; /* Fotoğrafın yüksekliğini 88px yapar */
     border-radius: 50%; /* Fotoğrafı daire şeklinde gösterir */
-    object-fit: cover; /* Fotoğrafı bozmadan alanı doldurur */
+    object-fit: cover; /* Fotoğrafı oranını bozmadan alanı dolduracak şekilde kırpar */
 }
 
 /* Ana başlığın görünümünü düzenler */
 h1 {
-    margin: 24px 0 8px; /* Üstte 24px, sağda-solda 0, altta 8px boşluk verir */
-    font-size: 24px; /* Başlık yazısının boyutunu belirler */
+    margin: 1.5rem 0 0.5rem; /* Üstte 24px, sağda-solda 0, altta 8px boşluk bırakır */
+    font-size: 1.5rem; /* Başlık yazı boyutunu varsayılan ayarda 24px yapar */
     font-weight: 600; /* Başlığı yarı kalın yapar */
 }
 
 /* Konum bilgisini düzenler */
 .location {
-    color: hsl(75, 94%, 57%); /* Konum yazısını rehberdeki yeşil renge ayarlar */
+    color: var(--color-accent); /* Konum yazısını yeşil yapar */
     font-weight: 700; /* Konum yazısını kalın yapar */
-    margin-bottom: 24px; /* Konumun altına dış boşluk ekler */
+    margin-bottom: 1.5rem; /* Konumun altına 24px dış boşluk ekler */
 }
 
-/* Karttaki location sınıfı dışındaki paragrafları seçer */
+/* Location sınıfına sahip olmayan kart paragraflarını düzenler */
 .card p:not(.location) {
-    color: #e0e0e0; /* Açıklama yazısını açık gri yapar */
-    font-size: 14px; /* Paragraf yazı boyutunu rehbere uygun yapar */
+    color: var(--color-description); /* Açıklama yazısını açık gri yapar */
+    font-size: 0.875rem; /* Yazı boyutunu varsayılan ayarda 14px yapar */
 }
 
 /* Sosyal bağlantıların bulunduğu alanı düzenler */
 .links {
     display: flex; /* Bağlantıları Flexbox ile düzenler */
     flex-direction: column; /* Bağlantıları alt alta sıralar */
-    gap: 16px; /* Bağlantılar arasında boşluk bırakır */
-    margin-top: 24px; /* Bağlantı grubunun üstüne dış boşluk ekler */
+    gap: 1rem; /* Bağlantılar arasında 16px boşluk bırakır */
+    margin-top: 1.5rem; /* Bağlantı grubunun üstüne 24px dış boşluk ekler */
 }
 
 /* Sosyal bağlantıları buton görünümüne dönüştürür */
 .links a {
-    display: block; /* Her bağlantıyı blok element gibi gösterir */
-    padding: 12px; /* Bağlantı yazısının çevresine iç boşluk verir */
-    background-color: hsl(0, 0%, 20%); /* Butonları rehberdeki Grey 700 rengine ayarlar */
-    color: white; /* Buton yazılarını beyaz yapar */
+    display: block; /* Her bağlantının satır boyunca alan kaplamasını sağlar */
+    padding: 0.75rem; /* Bağlantı yazısının çevresine 12px iç boşluk verir */
+    background-color: var(--color-link); /* Buton arka planını koyu gri yapar */
+    color: var(--color-text); /* Buton yazılarını beyaz yapar */
     text-decoration: none; /* Bağlantıların altındaki çizgiyi kaldırır */
-    font-size: 14px; /* Buton yazılarının boyutunu belirler */
+    font-size: 0.875rem; /* Buton yazılarını varsayılan ayarda 14px yapar */
     font-weight: 700; /* Buton yazılarını kalın yapar */
-    border-radius: 8px; /* Butonların köşelerini yuvarlatır */
-    transition: background-color 0.3s, color 0.3s; /* Renk değişimlerini yumuşatır */
-    cursor: pointer; /* Fare butonun üzerindeyken el işaretini gösterir */
+    border-radius: 0.5rem; /* Buton köşelerini 8px yuvarlatır */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Arka plan ve yazı rengi değişimlerini yumuşatır */
 }
 
 /* Fare bağlantının üzerine geldiğinde uygulanır */
 .links a:hover {
-    background-color: hsl(75, 94%, 57%); /* Buton arka planını yeşil yapar */
-    color: hsl(0, 0%, 8%); /* Buton yazısını koyu renge dönüştürür */
+    background-color: var(--color-accent); /* Buton arka planını yeşil yapar */
+    color: var(--color-background); /* Buton yazısını koyu renge dönüştürür */
+}
+
+/* Klavyeyle bağlantıya odaklanıldığında uygulanır */
+.links a:focus-visible {
+    background-color: var(--color-accent); /* Odaklanan butonun arka planını yeşil yapar */
+    color: var(--color-background); /* Odaklanan butonun yazısını koyu yapar */
+    outline: 2px solid var(--color-text); /* Butonun çevresine beyaz odak çerçevesi ekler */
+    outline-offset: 3px; /* Çerçeveyi butonun kenarından 3px uzaklaştırır */
 }
